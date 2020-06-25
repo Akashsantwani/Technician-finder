@@ -1,0 +1,7 @@
+.backimg
+{
+	background: url(../media/bg1.jpg)no-repeat center 0px fixed;
+    background-size: cover;
+    height:300px;
+    position:static;
+}

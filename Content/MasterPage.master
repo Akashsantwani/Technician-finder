@@ -1,0 +1,378 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Content_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700"/>-->
+    <link href="~/Content/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/skins/header/base/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/skins/header/menu/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/skins/brand/light.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="~/Content/assets/media/logos/logo-5.png" />
+
+    <script src="<%=ResolveClientUrl("~/Content/assets/plugins/global/plugins.bundle.js") %>" type="text/javascript"></script>
+    <script src="<%=ResolveClientUrl("~/Content/assets/js/scripts.bundle.js")%>" type="text/javascript"></script>
+    <script type="text/javascript">
+        function successalert() {
+            var name = document.getElementById("lblClient").innerHTML;
+            swal.fire({
+                title: "Welcome back!",
+                text: "welcome " + name,
+                timer: 2e3,
+                showCloseButton: true,
+                onOpen: function () {
+                    swal.showLoading()
+                }
+            }).then(function (e) { "timer" === e.dismiss && console.log("I was closed by the timer") })
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body runat="server" id="bdybody" class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-page--loading">
+    <!--kt-subheader--enabled kt-subheader--fixed kt-subheader--solid-->
+    <form id="form1" runat="server" class="kt-form" style="height: 100%;">
+        <asp:ScriptManager ID="smbody" runat="server">
+        </asp:ScriptManager>
+        <div id="kt_header_mobile" class="kt-header-mobile kt-header-mobile--fixed">
+            <div class="kt-header-mobile__logo">
+                <asp:HyperLink runat="server" ID="hlHomeMobile" NavigateUrl="~/Home.aspx">
+                    <img alt="Logo" src="<%=ResolveClientUrl("~/Content/assets/media/logos/logo-dark.png") %>" />
+                </asp:HyperLink>
+            </div>
+            <div class="kt-header-mobile__toolbar">
+                <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+                <span class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></span>
+            </div>
+        </div>
+        <!-- end:: Header Mobile -->
+        <div class="kt-grid kt-grid--hor kt-grid--root" style="height: 100%;">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+                <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+                    <!-- begin:: Header -->
+                    <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+                        <!-- begin:: Header Menu -->
+                        <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+                            <div class="kt-header-logo">
+                                <asp:HyperLink runat="server" ID="hlHome" NavigateUrl="../Home.aspx">
+                                    <img alt="Logo" src="<%=ResolveClientUrl("~/Content/assets/media/logos/logo-dark.png") %>" />
+                                </asp:HyperLink>
+                            </div>
+                            <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default">
+                                <ul class="kt-menu__nav">
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"><%--for active use class as --------  kt-menu__item--active--%>
+                                        <asp:HyperLink runat="server" NavigateUrl="~/ClientPanel/ClientRegister.aspx" ID="hlRegisterClient" class="kt-menu__link"><span class="kt-menu__link-text">Register Your Work</span></asp:HyperLink>
+                                        <%--<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#modalregister">Register work</button>--%>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" id="lijobsdone" runat="server" visible="false">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/ClientPanel/jobsDone.aspx" ID="hljobsdone" class="kt-menu__link"><span class="kt-menu__link-text">Jobs Done</span></asp:HyperLink>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" id="limycomplains" runat="server" visible="false">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/ClientPanel/MyComplains.aspx" ID="hlmycomplains" class="kt-menu__link"><span class="kt-menu__link-text">My Complains</span></asp:HyperLink>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" id="limyservices" runat="server" visible="false">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/CustomerPanel/MyServices.aspx" ID="hlmyservices" class="kt-menu__link"><span class="kt-menu__link-text">My Services</span></asp:HyperLink>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel">
+                                        <%--<asp:HyperLink runat="server" NavigateUrl="~/aboutus.aspx" ID="hlAboutUs" class="kt-menu__link"><span class="kt-menu__link-text">About us</span></asp:HyperLink>--%>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/AdminPanel/ClientsList.aspx" ID="hlclientList" class="kt-menu__link"><span class="kt-menu__link-text">Client List</span></asp:HyperLink>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/AdminPanel/CustomerList.aspx" ID="hlcustomerList" class="kt-menu__link"><span class="kt-menu__link-text">Customer List</span></asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end:: Header Menu -->
+                        <!-- begin:: Header Topbar -->
+                        <div class="kt-header__topbar">
+                            <div id="divlogin" runat="server" class="kt-header-menu kt-header-menu-mobile kt-header-menu--layout-default ">
+                                <ul class="kt-menu__nav ">
+                                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel">
+                                        <asp:HyperLink runat="server" ID="hllogin" class="kt-link" NavigateUrl="~/Login.aspx"><span class="kt-menu__link-text">Login</span></asp:HyperLink><%--kt-menu__link--%>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="divuser" runat="server" class="kt-header__topbar-item kt-header__topbar-item--user" visible="false">
+                                <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                                    <div class="kt-header__topbar-user">
+                                        <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
+                                        <span class="kt-header__topbar-username kt-hidden-mobile">
+                                            <asp:Label runat="server" ID="lblClientName"></asp:Label>
+                                        </span>
+                                        <asp:Image runat="server" ID="imgClient" />
+                                        <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                        <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">
+                                            <asp:Image runat="server" ID="imginnerImg" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+                                    <!--begin: Head -->
+                                    <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url(../Content/assets/media/misc/bg-1.jpg)">
+                                        <div class="kt-user-card__avatar">
+                                            <asp:Image runat="server" ID="imgDP" />
+                                        </div>
+                                        <div class="kt-user-card__name">
+                                            <asp:Label runat="server" ID="lblClient"></asp:Label>
+                                        </div>
+                                    </div>
+                                    <!--end: Head -->
+                                    <!--begin: Navigation  -->
+                                    <div class="kt-notification">
+                                        <asp:HyperLink ID="hlprofile" runat="server" class="kt-notification__item">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-calendar-3 kt-font-success"></i>
+                                            </div>
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title kt-font-bold">
+                                                    My Profile
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    Account settings and more
+                                                </div>
+                                            </div>
+                                        </asp:HyperLink>
+                                        <asp:HyperLink runat="server" ID="hlChangePassword" class="kt-notification__item" data-toggle="modal" data-target="#modalchangepassword" Style="cursor: pointer;">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-protected kt-font-danger"></i>
+                                            </div>
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title kt-font-bold">
+                                                    Change Password
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    <%--if any text write here--%>
+                                                </div>
+                                            </div>
+                                        </asp:HyperLink>
+                                        <asp:HyperLink runat="server" ID="hlUpdatePhoneNumber" class="kt-notification__item" data-toggle="modal" data-target="#modalresetphone" Style="cursor: pointer;">
+                                            <div class="kt-notification__item-icon">
+                                                <i class="flaticon2-phone kt-font-success"></i>
+                                            </div>
+                                            <div class="kt-notification__item-details">
+                                                <div class="kt-notification__item-title kt-font-bold">
+                                                    Update Phone Number
+                                                </div>
+                                                <div class="kt-notification__item-time">
+                                                    update your primary number
+                                                </div>
+                                            </div>
+                                        </asp:HyperLink>
+                                        <div class="kt-notification__custom kt-space-between">
+                                            <asp:LinkButton ViewStateMode="Enabled" runat="server" OnClick="btnlogout_Click" ID="lbLogout" Text="Logout" CssClass="btn btn-label btn-label-brand btn-sm btn-bold" />
+                                            <%--<a runat="server" id="btnSignout" data-toggle="modal" data-target="#logoutModal" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>--%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: User Bar -->
+                        </div>
+                        <!-- end:: Header Topbar -->
+                    </div>
+                    <!-- end:: Header -->
+                    <asp:ContentPlaceHolder ID="cphHomeMaster" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <asp:Label runat="server" ID="lblmessage"></asp:Label>
+                    <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+                        <asp:ContentPlaceHolder runat="server" ID="cphSubheader">
+                        </asp:ContentPlaceHolder>
+                        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                            <asp:ContentPlaceHolder ID="cphbody" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                    <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer" style="bottom: 0; left: 0;">
+                        <div class="kt-container kt-container--fluid">
+                            <div class="kt-footer__copyright">
+                                <script>document.write(new Date().getFullYear());</script>
+                                &nbsp;&copy;&nbsp;<asp:HyperLink runat="server" ID="hlfooterhome" NavigateUrl="~/Home.aspx" Target="_blank" class="kt-link">Worker Finder</asp:HyperLink>
+                            </div>
+                            <div class="kt-footer__menu">
+                                <a href="#" target="_blank" class="kt-footer__menu-link kt-link">About</a>
+                                <a href="#" target="_blank" class="kt-footer__menu-link kt-link">Team</a>
+                                <a href="#" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Begin :: password change modal-->
+                    <div class="modal fade" id="modalchangepassword" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="">Change Password</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" class="la la-remove"></span>
+                                    </button>
+                                </div>
+                                <form class="kt-form kt-form--fit kt-form--label-right">
+                                    <div class="modal-body">
+                                        <div class="form-group row kt-margin-t-20">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Enter old password</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <asp:TextBox runat="server" TextMode="Password" class="form-control" ID="txtoldpassword" placeholder="old password" />
+                                                <span class="form-text text-muted">
+                                                    <asp:RequiredFieldValidator runat="server" ID="rfvoldpassword" ForeColor="Red" ControlToValidate="txtoldpassword" Display="Dynamic" ErrorMessage="Please enter password" ValidationGroup="changepassword" />
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row kt-margin-t-20">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Enter new password</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <asp:TextBox runat="server" TextMode="Password" class="form-control" ID="txtnewpassword" placeholder="new password" />
+                                                <span class="form-text text-muted">
+                                                    <asp:RequiredFieldValidator runat="server" ID="rfvnewpass" ForeColor="Red" ControlToValidate="txtnewpassword" Display="Dynamic" ErrorMessage="please enter password" ValidationGroup="changepassword" />
+                                                </span>
+                                                <span class="form-text text-muted">
+                                                    <asp:RegularExpressionValidator runat="server" ID="revnewpass" ControlToValidate="txtnewpassword" ForeColor="Red" ValidationExpression="^(?=.*\d).{4,8}$" Display="Dynamic" ErrorMessage="Password must be between 4 and 8 digits long and include at least one numeric digit." ValidationGroup="changepassword" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row kt-margin-t-20">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Re-confirm password</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <asp:TextBox runat="server" TextMode="Password" class="form-control" ID="txtconfirmnewpass" placeholder="re-enter new password" />
+                                                <span class="form-text text-muted">
+                                                    <asp:RequiredFieldValidator runat="server" ID="rfvconfirmnewpass" ForeColor="Red" ControlToValidate="txtconfirmnewpass" Display="Dynamic" ErrorMessage="please enter password" ValidationGroup="changepassword" />
+                                                </span>
+                                                <span class="form-text text-muted">
+                                                    <asp:CompareValidator runat="server" ID="cvconfirmnewpass" Display="Dynamic" ForeColor="Red" ValidationGroup="confirmpassword" ControlToValidate="txtconfirmnewpass" ControlToCompare="txtnewpassword" ErrorMessage="password does not match" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group justify-content-md-center row">
+                                            <asp:Label runat="server" ID="lblError"></asp:Label>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-brand" data-dismiss="modal">Close</button>
+                                        <asp:Button runat="server" ID="btnChangepassword" ValidationGroup="changepassword" type="button" class="btn btn-secondary" Text="submit" OnClick="btnChangepassword_Click" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end :: password change modal-->
+
+                    <!--begin :: Register client modal-->
+                    <div class="modal fade" id="modalregister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Register Your Work</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Phone number</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span class="input-group-text">+91</span></div>
+                                            <asp:TextBox runat="server" ID="txtPhoneNo" TextMode="number" CssClass="form-control" aria-describedby="basic-addon1" placeholder="Enter your phone number" /><br />
+                                        </div>
+                                        <asp:RequiredFieldValidator runat="server" ID="rfvPhoneNo" ControlToValidate="txtPhoneNo" ErrorMessage="Please enter your Mobile number" ValidationGroup="Register" Display="Dynamic" ForeColor="#FD397A" />
+                                        <asp:RegularExpressionValidator runat="server" ID="revPhoneNo" ControlToValidate="txtPhoneNo" ValidationGroup="Register" Display="Dynamic" ForeColor="#FD397A" ErrorMessage="Invalid Mobile Number" ValidationExpression="^(\d{10}){1}?$" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <asp:Button runat="server" ID="btnSavePhoneNo" class="btn btn-primary" Text="Save" OnClick="btnSavePhoneNo_Click" ValidationGroup="Register"></asp:Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end :: Register client modal-->
+
+                    <!--begin :: update phone number modal-->
+                    <div class="modal fade" runat="server" id="modalresetphone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="H1">Update Mobile number</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label runat="server" id="lblPhoneNo">Phone number</label>
+                                        <label runat="server" id="lblOTP" visible="false">Enter OTP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend" runat="server" id="divnumberprefix"><span class="input-group-text">+91</span></div>
+                                            <asp:TextBox runat="server" ID="txtUpdatePhoneNo" TextMode="number" CssClass="form-control" aria-describedby="basic-addon1" placeholder="Enter your phone number" /><br />
+                                        </div>
+                                        <asp:RequiredFieldValidator runat="server" ID="rfvUpdatePhoneNumber" ControlToValidate="txtUpdatePhoneNo" ErrorMessage="Please enter your Mobile number" ValidationGroup="SendOTP" Display="Dynamic" ForeColor="#FD397A" />
+                                        <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="txtPhoneNo" ValidationGroup="SendOTP" Display="Dynamic" ForeColor="#FD397A" ErrorMessage="Invalid Mobile Number" ValidationExpression="^(\d{10}){1}?$" />
+
+                                        <asp:TextBox runat="server" ID="txtConfirmOTP" TextMode="SingleLine" CssClass="form-control" aria-describedby="basic-addon1" placeholder="Enter OTP" Visible="false" /><br />
+                                        <asp:RequiredFieldValidator runat="server" ID="rfvOTP" ControlToValidate="txtConfirmOTP" ErrorMessage="Please enter OTP" ValidationGroup="UpdatePhoneNo" Display="Dynamic" ForeColor="#FD397A" />
+                                        <asp:Label runat="server" ID="lblWrongOTP" ForeColor="#FD397A" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <asp:Button runat="server" ID="BtnSendOTP" class="btn btn-primary" Text="Send OTP" OnClick="BtnSendOTP_Click" ValidationGroup="SendOTP" autopostback="false"></asp:Button>
+                                    <asp:Button runat="server" ID="BtnUpdatePhoneNo" class="btn btn-primary" Text="Update" OnClick="BtnUpdatePhoneNo_Click" ValidationGroup="SendOTP" Visible="false"></asp:Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end :: update phone number modal-->
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- begin::Scrolltop -->
+    <div id="kt_scrolltop" class="kt-scrolltop">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+    <!-- end::Scrolltop -->
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#5d78ff",
+                    "dark": "#282a3c",
+                    "light": "#ffffff",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": [
+                    "#c5cbe3",
+                    "#a1a8c3",
+                    "#3d4465",
+                    "#3e4466"
+                    ],
+                    "shape": [
+                    "#f0f3ff",
+                    "#d9dffa",
+                    "#afb4d4",
+                    "#646c9a"
+                    ]
+                }
+            }
+        };
+    </script>
+
+    <script src="<%=ResolveClientUrl("~/Content/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js") %>"></script>
+    <script src="<%=ResolveClientUrl("~/Content/assets/js/pages/dashboard.js")%>" type="text/javascript"></script>
+    <script src="<%=ResolveClientUrl("~/Content/assets/js/pages/crud/forms/widgets/bootstrap-select.js") %>"></script>
+
+    <asp:ContentPlaceHolder runat="server" ID="cphScripts">
+    </asp:ContentPlaceHolder>
+</body>
+</html>
